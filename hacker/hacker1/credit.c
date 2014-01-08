@@ -26,36 +26,41 @@ int main(void)
     int ccDigits[nDigits];
     int evenSum = 0, oddSum = 0, totalSum = 0;
     n = ccNumber;
-    for (int i = nDigits-1; i >=0 ; i--)
+    for (int i = nDigits-1; i >= 0 ; i--)
     {
         ccDigits[i] = n % 10;
         n /= 10;
-        if ((i+1) % 2 == 0)
+        //printf("Current digit: %d => ", ccDigits[i]);
+        if ((nDigits-i) % 2 == 0)
         {
             int tempDig = ccDigits[i] * 2;
-            if (tempDig < 10) oddSum += tempDig;
-            else
+            if (tempDig > 9) 
             {
-                oddSum += tempDig % 10;
-                oddSum += tempDig / 10;
+                evenSum += tempDig % 10;
+                evenSum += tempDig / 10;
+                // evenSum += tempDig-9;
             }
+            else evenSum += tempDig;
+            //printf("partialEven: %d\n", evenSum);
             
         }
         else
         {
-            evenSum += ccDigits[i];
+            oddSum += ccDigits[i];
+            //printf("partialOdd:  %d\n", oddSum);
         }
     }
     
     totalSum = evenSum + oddSum;
     
-    printf("nDigits: %d\n", nDigits);
-    printf("odd: %d\n", oddSum);
-    printf("even: %d\n", evenSum);
-    printf("total: %d\n", totalSum);
+    //printf("nDigits: %d\n", nDigits);
+    //printf("odd: %d\n", oddSum);
+    //printf("even: %d\n", evenSum);
+    //printf("total: %d\n", totalSum);
     
     
     short cardFound = totalSum % 10;
+    
     if (0 == cardFound)
     {
         switch(ccDigits[0])
