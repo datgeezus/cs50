@@ -18,14 +18,13 @@ int main(void)
         change = GetFloat();
     }
     while (change < 0.0);               // Allow only positive values
-    
+
     // Convert to cents
     int cents = round(change * 100);
-    
+
     // numbers of coins used
     int nCoins = 0;
-    
-    
+
     while (cents > 0)
     {
         if (cents >= QUARTER)
@@ -53,7 +52,7 @@ int main(void)
             cents = 0;
         }
     }
-    
+
     // Print number of coins used
     printf("%d\n", nCoins);
     return 0;
