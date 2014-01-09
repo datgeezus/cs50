@@ -4,7 +4,7 @@
 #include <string.h>     // strlen
 #include <ctype.h>      // isupper, islower
 
-char CasesarCipher(char, int);
+char VigenereCipher(char, int);
 
 int main(int argc, string argv[])
 {
@@ -15,14 +15,24 @@ int main(int argc, string argv[])
     }
     else
     {
-        int k = atoi(argv[1]);
-        // printf("Message:\n");
+        string k = argv[1];
+        for (int i = 0; i < strlen(k); i++)
+            if (!isalpha(k[i]))
+            {
+                printf("Keyword must only contain letters A-Z and a-z\n");
+                return 1;
+            }
+
+        int mod_k = strlen(k);
         string message = GetString();
 
-        for (int i = 0; i < strlen(message); i++)
+        for (int i = 0, j = 0; i < strlen(message); i++)
         {
             if (isalpha(message[i]))
-                message[i] = CasesarCipher(message[i], k);
+            {
+                message[i] = VigenereCipher(message[i], k[j % mod_k]);
+                j++;
+            }
         }
 
         printf("%s\n", message);
@@ -31,9 +41,10 @@ int main(int argc, string argv[])
 }
 
 
-char CasesarCipher(char p, int k)
+char VigenereCipher(char p, int k)
 {
-    if (isupper(p))b
+    k = tolower(k) - 'a';
+    if (isupper(p))
         return (((p - 'A') + k) % 26) + 'A';
     else
         return (((p - 'a') + k) % 26) + 'a';
