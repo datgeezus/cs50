@@ -45,8 +45,9 @@ bool linear_search(int value, int values[], int n)
 
 void bubble_sort(int values[], int n)
 {
-    bool iter = true;
-    while (iter)
+    bool iter;
+
+    do
     {
         iter = false;
         for (int i = 0; i < n-1; i++)
@@ -59,6 +60,6 @@ void bubble_sort(int values[], int n)
                 iter = true;
             }
         }
-    }
+    } while (iter);
     return;
 }
