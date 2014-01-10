@@ -29,7 +29,7 @@ bool search(int value, int values[], int n)
 void sort(int values[], int n)
 {
     // TODO: implement an O(n^2) sorting algorithm
-    bubble_sort(values, n);
+    selection_sort(values, n);
     return;
 }
 
@@ -82,4 +82,22 @@ void bubble_sort(int values[], int n)
         }
     } while (iter);
     return;
+}
+
+void selection_sort(int values[], int n)
+{
+    int temp;
+    for (int i = 0; i < n; i++)
+    {
+        int smallest_index = i;
+        for (int j = i+1; j < n; j++)
+        {
+            if (values[smallest_index] > values[j])
+                smallest_index = j;
+        }
+        // Swap values;
+        temp = values[smallest_index];
+        values[smallest_index] = values[i];
+        values[i] = temp;
+    }
 }

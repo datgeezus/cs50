@@ -24,6 +24,6 @@ void sort(int values[], int n);
 bool binary_search(int value, int values[], int n);
 
 // Custom search functions (uncomment just one)
-void bubble_sort(int values[], int n);
-// static void selection_sort(int values[], int n);
+// void bubble_sort(int values[], int n);
+void selection_sort(int values[], int n);
 // static void insertion_sort(int values[], int n);
