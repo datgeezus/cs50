@@ -20,7 +20,7 @@ bool search(int value, int values[], int n)
     if (value < 0)
         return false;
     else
-        return linear_search(value, values, n);
+        return binary_search(value, values, n);
 }
 
 /**
@@ -33,7 +33,7 @@ void sort(int values[], int n)
     return;
 }
 
-// Custom functions
+// Custom search functions
 bool linear_search(int value, int values[], int n)
 {
     for (int i = 0; i < n; i++)
@@ -43,6 +43,26 @@ bool linear_search(int value, int values[], int n)
     return false;
 }
 
+bool binary_search(int value, int values[], int n)
+{
+    int ending = n-1;
+    int beggining = 0;
+
+    while (ending >= beggining)
+    {
+        int middle = (beggining + ending) / 2;
+        if (values[middle] == value)
+            return true;
+        else if (values[middle] > value)
+            ending = middle - 1;
+        else
+            beggining = middle + 1;
+    }
+
+    return false;
+}
+
+// Custom sort functions
 void bubble_sort(int values[], int n)
 {
     bool iter;

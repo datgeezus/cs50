@@ -20,7 +20,8 @@ bool search(int value, int values[], int n);
 void sort(int values[], int n);
 
 // Custom sort functions
-bool linear_search(int value, int values[], int n);
+// bool linear_search(int value, int values[], int n);
+bool binary_search(int value, int values[], int n);
 
 // Custom search functions (uncomment just one)
 void bubble_sort(int values[], int n);
