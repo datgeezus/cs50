@@ -29,13 +29,17 @@
 #define MAX 9
 
 // macro to print the tiles, '_' on empty tile
-#define PRINT_TILES(i,j)    board[i][j] == 0 ? printf("%2c",'_') : printf("%2d ", board[i][j]);
+#define EMPTY 0
+#define PRINT_TILES(i,j)    board[i][j] == EMPTY ? printf(" _ ") : printf("%2d ", board[i][j]);
 
 // board, whereby board[i][j] represents row i and column j
 int board[MAX][MAX];
 
 // board's dimension
 int d;
+
+// tiles values mapped to position
+int tile_position[MAX*MAX][2];
 
 // prototypes
 void clear(void);
@@ -45,6 +49,8 @@ void draw(void);
 bool move(int tile);
 bool won(void);
 void save(void);
+
+int eucDistance(int x[], int y[]);
 
 int main(int argc, string argv[])
 {
@@ -135,11 +141,25 @@ void greet(void)
 void init(void)
 {
     // TODO
-    int boardValues = (d * d) - 1;
-    board[d][d] = 0;
+    int tile_value = (d * d) - 1;
+    board[d-1][d-1] = EMPTY;
+
+    // fill the tiles in descending order
     for (int i = 0; i < d; i++)
         for (int j = 0; j < d; j++)
-            board[i][j] = boardValues--;
+            board[i][j] = tile_value--;
+
+    // save the tiles locations
+    tile_value = (d * d) - 1;
+    for (int i = 0; i < d; i++)
+    {
+        for (int j = 0; j < d; j++)
+        {
+            tile_position[tile_value][0] = i;
+            tile_position[tile_value][1] = j;
+            tile_value--;
+        }
+    }
 
     // if the board has an odd number of tiles
     if(d % 2 == 0)
@@ -172,7 +192,40 @@ void draw(void)
 bool move(int tile)
 {
     // TODO
-    return false;
+    if (tile > 0 && tile < MAX)
+    {
+        int x[] = {tile_position[tile][0], tile_position[tile][1]};
+        int y[] = {tile_position[EMPTY][0], tile_position[EMPTY][1]};
+
+        if(eucDistance(x,y) == 1)
+        {
+            // Swap tile and empty values
+            int temp = board[x[0]][x[1]];
+            board[x[0]][x[1]] = board[y[0]][y[1]];
+            board[y[0]][y[1]] = temp;
+
+            // Update position
+            tile_position[tile][0] = y[0];
+            tile_position[tile][1] = y[1];
+            tile_position[EMPTY][0] = x[0];
+            tile_position[EMPTY][1] = x[1];
+            return true;
+        }
+        else
+            return false;
+    }
+    else
+        return false;
+}
+
+/**
+ * Returns the euclidean distance of a pair of vectors
+ */
+int eucDistance(int x[], int y[])
+{
+    int a = x[0] - y[0];
+    int b = x[1] - y[1];
+    return (a*a + b*b);
 }
 
 /**
