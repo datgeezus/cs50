@@ -107,7 +107,7 @@ int main(int argc, string argv[])
         }
 
         // sleep for animation's sake
-        usleep(500000);
+        usleep(100000);
     }
 
     // that's all folks
@@ -164,10 +164,18 @@ void init(void)
     // if the board has an odd number of tiles
     if(d % 2 == 0)
     {
-        // Swap last 2 values
+        // Swap values 1 and 2
         int temp = board[d-1][d-2];
         board[d-1][d-2] = board[d-1][d-3];
         board[d-1][d-3] = temp;
+
+        // Swap positions
+        int val1[] = {tile_position[1][0], tile_position[1][1]};
+        int val2[] = {tile_position[2][0], tile_position[2][1]};
+        tile_position[1][0] = val2[0];
+        tile_position[1][1] = val2[1];
+        tile_position[2][0] = val1[0];
+        tile_position[2][1] = val1[1];
     }
 }
 
@@ -192,7 +200,7 @@ void draw(void)
 bool move(int tile)
 {
     // TODO
-    if (tile > 0 && tile < MAX)
+    if (tile > 0 && tile < (d*d))
     {
         int x[] = {tile_position[tile][0], tile_position[tile][1]};
         int y[] = {tile_position[EMPTY][0], tile_position[EMPTY][1]};
@@ -235,7 +243,26 @@ int eucDistance(int x[], int y[])
 bool won(void)
 {
     // TODO
-    return false;
+
+    int tile_value = 1;
+    for (int i = 0; i < d; i++)
+    {
+        for (int j = 0; j < d; j++)
+        {
+            int x[] = {tile_position[tile_value % (d*d)][0], tile_position[tile_value % (d*d)][1]};
+            int y[] = {i, j};
+            if (eucDistance(x,y) == 0)
+                tile_value++;
+            else
+                break;
+        }
+    }
+
+    printf("%10d\n", tile_value );
+    if (tile_value == (d*d)+1)
+        return true;
+    else
+        return false;
 }
 
 /**
