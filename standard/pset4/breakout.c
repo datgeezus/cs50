@@ -232,11 +232,12 @@ GLabel initScoreboard(GWindow window)
 {
     // TODO
     GLabel label = newGLabel("0");
-    setFont(label,"DevaVuSansMono-40");
+    setFont(label,"DejaVuSansMono-40");
     double x = (getWidth(window) - getWidth(label)) / 2;
     double y = (getHeight(window) - getHeight(label)) / 2;
     setLocation(label, x, y);
     setColor(label, "GRAY");
+
     add(window, label);
     return label;
 }
